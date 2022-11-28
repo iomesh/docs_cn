@@ -1,0 +1,38 @@
+{
+  "docs": {
+    "关于 IOMesh": [
+      "about-iomesh/introduction"
+    ],
+    "部署 IOMesh": [
+      "deploy/prerequisites",
+      "deploy/install-iomesh",
+      "deploy/setup-iomesh",
+      "deploy/setup-storageclass",
+      "deploy/setup-snapshotclass"
+    ],
+    "Volume 操作": [
+        "volume-operations/create-volume",
+        "volume-operations/expand-volume",
+        "volume-operations/snapshot-restore-and-clone"
+    ],
+    "IOMesh 运维":[
+        "iomesh-operations/monitoring",
+        "iomesh-operations/cluster-operations"
+    ],
+    "部署有状态应用":[
+        "stateful-applications/iomesh-for-mysql",
+        "stateful-applications/iomesh-for-cassandra",
+        "stateful-applications/iomesh-for-mongodb"
+    ],
+    "高级功能":[
+        "advanced-usage/external-iscsi"
+    ],
+    "附录":[
+        "additional-info/performance-testing",
+        "additional-info/release-notes"
+    ],
+    "参考文档": [
+        "references/metrics"
+    ]
+  }
+}
