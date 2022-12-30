@@ -3,47 +3,57 @@ id: install-iomesh
 title: 安装 IOMesh 
 sidebar_label: 安装 IOMesh 
 ---
+# 安装 IOMesh 
 
-## 快速安装指南
+IOMesh 支持在所有 Kubernetes 平台通过以下几种方式进行安装，您可以根据现场实际情况选择安装方式。
+- **快速安装**：一键式在线安装，但只能使用文件里的默认设置，无法自定义参数。
+- **自定义安装**：用户可以自定义参数，安装时必须确保 Kubernetes 集群网络与外网连通。
+- **离线安装**：当 Kubernetes 集群网络与外网无法连通时，建议采用此种方式安装，安装时支持用户自定义参数。
 
-执行下述脚本进行快速安装
+此外，如果您想将 IOMesh 部署在 Red Hat OpenShift 容器平台，请参考在 OpenShift 容器平台安装 IOMesh。
 
-> **_NOTE_: Helm3 将被自动安装.**
+
+## 快速安装
+
+快速安装 IOMesh 时，请对照操作系统的版本，选择执行对应的脚本文件。
+
+> **_NOTE_:**
+> 
+> 脚本文件中已包含 Kubernetes 的包管理器 Helm3。
 
 <!--DOCUSAURUS_CODE_TABS-->
 
 <!--RHEL7/CentOS7-->
 
 ```shell
-# 每一个运行 IOMesh 的 K8s Worker 节点需要有一个 IP 地址属于 IOMESH_DATA_CIDR 网段
+# 运行 IOMesh 的每个 Worker 节点所对应的 IP 地址必须位于 IOMESH_DATA_CIDR 网段内
 export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iomesh_el7.sh | sh -
 ```
 
 <!--RHEL8/CentOS8/CoreOS-->
 
 ```shell
-# 每一个运行 IOMesh 的 K8s Worker 节点需要有一个 IP 地址属于 IOMESH_DATA_CIDR 网段
+# 运行 IOMesh 的每个 Worker 节点所对应的 IP 地址必须位于 IOMESH_DATA_CIDR 网段内
 export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iomesh_el8.sh | sh -
 ```
 <!--END_DOCUSAURUS_CODE_TABS-->
 
-等待几分钟。 如果所有 IOMesh Cluster pod 都在运行，则 IOMesh 将成功安装。
+执行完脚本文件后等待几分钟，然后执行下述命令，如果 IOMesh 集群里每个节点的 pod 正常运行，表明 IOMesh 集群安装成功。
 
 ```shell
 watch kubectl get --namespace iomesh-system pods
 ```
 
-IOMesh 已安装完成!
+> **_NOTE_:**
+> 
+> 上述脚本文件在安装结束后仍将会继续保留，以方便在安装出现错误时帮助排除故障。您可以通过运行脚本 `curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -`，删除 IOMesh 安装脚本文件。
 
-> **_NOTE_: 通过脚本一键安装的 IOMesh 资源将被保留，方便在安装过程中出现任何错误时进行故障排除。 您可以运行以下脚本从 Kubernetes 集群中删除所有 IOMesh 资源: `curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -`**
 
-## 自定义安装指南
-
-要使用自定义配置进行安装，请按照以下步骤操作。
+## 自定义安装
 
 ### 安装 Helm3
 
-> **_NOTE_: 如果 Helm3 已安装则跳过该步骤。**
+在正式部署 IOMesh 前，需执行如下命令，在 Kubernetes 集群上安装 Kubernetes 的包管理工具 Helm3；如果当前 Kubernetes 集群已安装 Helm3，请跳过此步骤，直接开始[加载 IOMesh Helm Repo](#加载-iomesh-helm-repo)。更多细节请参考 Helm 官方文档 [Installing Helm](https://helm.sh/docs/intro/install/)
 
 ```shell
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
@@ -51,9 +61,7 @@ chmod 700 get_helm.sh
 ./get_helm.sh
 ```
 
-更多细节参考 Helm 官方文档 **[Install Helm](https://helm.sh/docs/intro/install/)**.
-
-### 添加 IOMesh Helm Repo
+### 加载 IOMesh Helm Repo
 
 ```shell
 helm repo add iomesh http://iomesh.com/charts
