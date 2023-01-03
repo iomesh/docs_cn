@@ -19,7 +19,7 @@ IOMesh 支持在所有 Kubernetes 平台通过以下几种方式进行安装，�
 
 > **_NOTE_:**
 > 
-> 脚本文件中已包含 Kubernetes 的包管理器 Helm3。
+> 脚本文件中已包含 Kubernetes 的包管理工具 Helm3。
 
 <!--DOCUSAURUS_CODE_TABS-->
 
@@ -46,7 +46,7 @@ watch kubectl get --namespace iomesh-system pods
 
 > **_NOTE_:**
 > 
-> 上述脚本文件在安装结束后仍将会继续保留，以方便在安装出现错误时帮助排除故障。您可以通过运行脚本 `curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -`，删除 IOMesh 安装脚本文件。
+> 上述脚本文件在安装结束后仍将会继续保留，以便在安装出现错误时帮助排除故障。您可以通过运行脚本 `curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -`，删除 IOMesh 安装脚本文件。
 
 
 ## 自定义安装
@@ -69,7 +69,7 @@ helm repo add iomesh http://iomesh.com/charts
 
 ### 安装 IOMesh
 
-1. 渲染 IOMesh 默认配置文件到 `iomesh.yaml` 中.
+1. 将默认的 IOMesh 配置文件渲染至 `iomesh.yaml` 中。
 
     ```shell
     helm show values iomesh/iomesh > iomesh.yaml
@@ -177,9 +177,10 @@ IOMesh 集群现在已成功部署. 接下来开始设置 IOMesh [Setup IOMesh](
 [1]: http://iomesh.com/charts
 [2]: http://www.iomesh.com/docs/installation/setup-iomesh-storage#setup-data-network
 
-## 离线安装 IOMesh
+## 离线安装
 
 ### 准备离线安装包
+
 1. 下载 [IOMesh offline installation package](https://download.smartx.com/iomesh-offline-v0.11.1.tgz).
 
 2. 解压离线安装包
