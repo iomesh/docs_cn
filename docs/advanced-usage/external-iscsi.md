@@ -49,7 +49,7 @@ K8s 会调用 IaaS 平台对应的接口，为你创建的服务分配一个 ext
 
 最后，执行 `kubectl edit iomesh -n iomesh-system` 命令，将 `spec.redirector.iscsiVirtualIP` 设置为 `iomesh-access-lb` 服务的 external-ip。保存后，`iomesh-iscsi-redirector` Pod 会自动重启使设置生效。
 
-> **_NOTE_:** `spec.redirector.iscsiVirtualIP` 需要和 `iomesh-access-lb` 服务的 external-ip 一致。 如果 external-ip 发生变化，需要同时更新 `spec.redirector.iscsiVi rtualIP`。
+> **_NOTE_:** `spec.redirector.iscsiVirtualIP` 需要和 `iomesh-access-lb` 服务的 external-ip 一致。 如果 external-ip 发生变化，需要同时更新 `spec.redirector.iscsiVirtualIP`。
 
 <!--Out-of-Tree LoadBalancer-->
 1. 创建 `iomesh-access-lb-service.yaml` 文件写入如下内容:
@@ -179,3 +179,10 @@ iscsiadm -m node -T iqn.2016-02.com.smartx:system:54e7022b-2dcc-4b43-800c-e52b6f
 
 ## 删除 PVC
 出于安全考考，IOMesh 不允许删除 `iomesh.com/iscsi-lun-iqn-allow-list` 字段值不为空的 PVC。 如果要删除PVC，需要确保`iomesh.com/iscsi-lun-iqn-allow-list`字段的值为`""`，或者直接删除`iomesh.com/iscsi-lun-iqn-allow-list` 字段，然后删除 PVC。 删除 PVC 后是否保留 External iSCSI LUN 取决于 PVC 使用的 StorageClass 对应的 reclaimPolicy 字段。
+
+## 在 IOMesh 多集群场景下使用 External LUN 功能
+关于 IOMesh 多集群功能参考 [IOMesh 多集群管理](multi-clsuter/multi-cluster-deploy.md)
+
+在 IOMesh 多集群场景中，不同的 IOMesh 集群会被部署在不同的 namespace 下。假设存在 IOMesh 集群 `iomesh-cluster-1` 并被部署在 `namespace: iomesh-cluster-1` 中，如果需要使用 `iomesh-cluster-1` 中的 External LUN，则只需要确保两点即可：
+1. 根据上网创建一个 LoadBalancer ，namespace 和 `iomesh-cluster-1` 的 namespace 相同
+2. 执行 `kubectl edit iomesh-cluster-1 -n iomesh-cluster-1` 命令，将 `spec.redirector.iscsiVirtualIP` 设置为 LoadBalancer 的 external-ip。保存后，`iomesh--cluster-1-iscsi-redirector` Pod 会自动重启使设置生效
