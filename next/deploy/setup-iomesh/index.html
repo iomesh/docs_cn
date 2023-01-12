@@ -1,0 +1,201 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>设置 IOMesh · Documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="节点上的块设备需要挂载到 IOMesh 集群中，IOMesh 才能利用这些设备构建和提供分布式存储服务。"/><meta name="docsearch:version" content="next"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="设置 IOMesh · Documentation"/><meta property="og:type" content="website"/><meta property="og:url" content="http://docs.iomesh.com/"/><meta property="og:description" content="节点上的块设备需要挂载到 IOMesh 集群中，IOMesh 才能利用这些设备构建和提供分布式存储服务。"/><meta property="og:image" content="http://docs.iomesh.com/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="http://docs.iomesh.com/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/IOMesh_logo_on_white.svg" alt="Documentation"/><h2 class="headerTitleWithLogo">Documentation</h2></a><a href="/versions"><h3>next</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://www.iomesh.com" target="_self">Back to IOMesh Home</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>部署 IOMesh</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">关于 IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/about-iomesh/introduction">介绍</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">部署 IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/deploy/prerequisites">安装准备</a></li><li class="navListItem"><a class="navItem" href="/next/deploy/install-iomesh">安装 IOMesh</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/next/deploy/setup-iomesh">设置 IOMesh</a></li><li class="navListItem"><a class="navItem" href="/next/deploy/setup-storageclass">创建 StorageClass</a></li><li class="navListItem"><a class="navItem" href="/next/deploy/setup-snapshotclass">创建 SnapshotClass</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Volume 操作</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/volume-operations/create-volume">创建 volume</a></li><li class="navListItem"><a class="navItem" href="/next/volume-operations/expand-volume">扩容 volume</a></li><li class="navListItem"><a class="navItem" href="/next/volume-operations/snapshot-restore-and-clone">快照/恢复/克隆</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">IOMesh 运维</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/iomesh-operations/monitoring">监控</a></li><li class="navListItem"><a class="navItem" href="/next/iomesh-operations/cluster-operations">IOMesh 集群运维</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">部署有状态应用</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/stateful-applications/iomesh-for-mysql">使用 IOMesh 部署 MySQL</a></li><li class="navListItem"><a class="navItem" href="/next/stateful-applications/iomesh-for-cassandra">使用 IOMesh 部署 Cassandra</a></li><li class="navListItem"><a class="navItem" href="/next/stateful-applications/iomesh-for-mongodb">使用 IOMesh 部署 MongoDB</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">高级功能</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/advanced-usage/external-iscsi">使用 IOMesh 作为 iSCSI Target</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">附录</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/additional-info/performance-testing">性能测试</a></li><li class="navListItem"><a class="navItem" href="/next/additional-info/release-notes">Release Notes</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">参考文档</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/references/metrics">Metrics</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">设置 IOMesh</h1></header><article><div><span><p>节点上的块设备需要挂载到 IOMesh 集群中，IOMesh 才能利用这些设备构建和提供分布式存储服务。</p>
+<p>默认情况下，IOMesh 不挂载任何块设备。 用户必须在安装后手动配置 IOMesh。</p>
+<h2><a class="anchor" aria-hidden="true" id="挂载块设备"></a><a href="#挂载块设备" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>挂载块设备</h2>
+<h3><a class="anchor" aria-hidden="true" id="block-device-对象"></a><a href="#block-device-对象" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Block Device 对象</h3>
+<p>IOMesh 使用 OpenEBS 的 <a href="https://github.com/openebs/node-disk-manager">node-disk-manager(NDM)</a> 来管理 Kubernetes worker 节点的磁盘。 部署 IOMesh 会在与 IOMesh 集群相同的命名空间中创建 <code>BlockDevice</code> CR：</p>
+<pre><code class="hljs css language-bash">kubectl --namespace iomesh-system -o wide get blockdevice
+</code></pre>
+<pre><code class="hljs css language-output">NAME                                           NODENAME             PATH         FSTYPE   SIZE           CLAIMSTATE   STATUS   AGE
+blockdevice<span class="hljs-number">-097</span>b6628acdcd83a2fc6a5fc9c301e01   kind-<span class="hljs-section">control</span>-plane   /dev/vdb1    ext4     <span class="hljs-number">107373116928</span>   Unclaimed    Active   <span class="hljs-number">10</span>m
+blockdevice<span class="hljs-number">-3</span>fa2e2cb7e49bc96f4ed09209644382e   kind-<span class="hljs-section">control</span>-plane   /dev/sda              <span class="hljs-number">9659464192</span>     Unclaimed    Active   <span class="hljs-number">10</span>m
+blockdevice-f4681681be66411f226d1b6a690270c0   kind-<span class="hljs-section">control</span>-plane   /dev/sdb              <span class="hljs-number">1073742336</span>     Unclaimed    Active   <span class="hljs-number">10</span>m
+</code></pre>
+<p>使用以下命令显示块设备的详细信息:</p>
+<pre><code class="hljs css language-shell">kubectl --namespace iomesh-system -o yaml get blockdevice &lt;device_name&gt;
+</code></pre>
+<pre><code class="hljs css language-output"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">openebs.io/v1alpha1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">BlockDevice</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">annotations:</span>
+    <span class="hljs-attr">internal.openebs.io/uuid-scheme:</span> <span class="hljs-string">gpt</span>
+  <span class="hljs-attr">generation:</span> <span class="hljs-number">1</span>
+  <span class="hljs-attr">labels:</span>
+    <span class="hljs-attr">iomesh.com/bd-devicePath:</span> <span class="hljs-string">dev.sda</span>
+    <span class="hljs-attr">iomesh.com/bd-deviceType:</span> <span class="hljs-string">disk</span>
+    <span class="hljs-attr">iomesh.com/bd-driverType:</span> <span class="hljs-string">SSD</span>
+    <span class="hljs-attr">iomesh.com/bd-serial:</span> <span class="hljs-string">24da000347e1e4a9</span>
+    <span class="hljs-attr">iomesh.com/bd-vendor:</span> <span class="hljs-string">ATA</span>
+    <span class="hljs-attr">kubernetes.io/hostname:</span> <span class="hljs-string">kind-control-plane</span>
+    <span class="hljs-attr">ndm.io/blockdevice-type:</span> <span class="hljs-string">blockdevice</span>
+    <span class="hljs-attr">ndm.io/managed:</span> <span class="hljs-string">"true"</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">iomesh-system</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">blockdevice-3fa2e2cb7e49bc96f4ed09209644382e</span>
+<span class="hljs-comment"># ...</span>
+</code></pre>
+<p>以 <code>iomesh.com/bd-</code> 开头的标签是由 IOMesh 创建的，用于描述硬件属性:</p>
+<table>
+<thead>
+<tr><th>Name</th><th>Describe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>iomesh.com/bd-devicePath</code></td><td>the device path on node</td></tr>
+<tr><td><code>iomesh.com/bd-deviceType</code></td><td>disk, loop, partition etc.</td></tr>
+<tr><td><code>iomesh.com/bd-driverType</code></td><td>HDD, SSD, NVME</td></tr>
+<tr><td><code>iomesh.com/bd-serial</code></td><td>disk serial</td></tr>
+<tr><td><code>iomesh.com/bd-vendor</code></td><td>disk vendor</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="devicemap"></a><a href="#devicemap" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>DeviceMap</h3>
+<p><code>iomesh-values.yaml</code> 中的 <code>chunk.deviceMap</code> 字段用于配置将哪些块设备挂载到 IOMesh 集群中，以及他们的挂载类型</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">chunk:</span>
+    <span class="hljs-attr">deviceMap:</span>
+      <span class="hljs-string">&lt;mount-type&gt;:</span>
+        <span class="hljs-attr">selector:</span>
+          <span class="hljs-attr">matchLabels:</span>
+            <span class="hljs-string">&lt;label-key&gt;:</span> <span class="hljs-string">&lt;label-value&gt;</span>
+          <span class="hljs-attr">matchExpressions:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">&lt;label-key&gt;</span>
+            <span class="hljs-attr">operator:</span> <span class="hljs-string">In</span>
+            <span class="hljs-attr">Values:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">&lt;label-value&gt;</span>
+        <span class="hljs-attr">exclude:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">&lt;block-device-name&gt;</span>
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="挂载类型"></a><a href="#挂载类型" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>挂载类型</h4>
+<p>在<code>hybrid-flash</code> 部署模式下，IOMesh 提供了两种挂载类型：</p>
+<ul>
+<li><code>cacheWithJournal</code>：用于存储池的性能层。 它必须是一个可分区的块设备。 将创建两个分区：一个用于“journal”，另一个用于“cache”。 建议使用 <code>SATA</code> 或 <code>NVMe</code> SSD。</li>
+<li><code>dataStore</code>：用于存储池的容量层。 建议使用 <code>SATA</code> 或 <code>SAS</code> HDD。</li>
+</ul>
+<p>在 <code>all-flash</code> 部署模式下，IOMesh 只提供一种挂载类型：</p>
+<ul>
+<li><code>dataStoreWithJournal</code>：用于存储池的容量层。 它必须是一个可分区的块设备。 将创建两个分区：一个用于“journal”，另一个用于“dataStore”。 建议使用 <code>SATA</code> 或 <code>NVMe</code> SSD。</li>
+</ul>
+<h4><a class="anchor" aria-hidden="true" id="device-selector"></a><a href="#device-selector" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Device Selector</h4>
+<p>Device Selector 的定义如下:</p>
+<table>
+<thead>
+<tr><th>Name</th><th>Type</th><th>Explain</th></tr>
+</thead>
+<tbody>
+<tr><td>selector</td><td><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#labelselector-v1-meta">metav1.LabelSelector</a></td><td><code>BlockDevice</code> 的 label selector</td></tr>
+<tr><td>exclude</td><td>[]string</td><td>被排除的 <code>BlockDevice</code> 列表</td></tr>
+</tbody>
+</table>
+<p>Device Selector 筛选的所有块设备将以对应的挂载类型挂载到 IOMesh 中</p>
+<h4><a class="anchor" aria-hidden="true" id="hybrid-flash-部署模式下的-devicemap-配置示例"></a><a href="#hybrid-flash-部署模式下的-devicemap-配置示例" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Hybrid-Flash 部署模式下的 DeviceMap 配置示例</h4>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">spec:</span>
+  <span class="hljs-comment"># ...</span>
+  <span class="hljs-attr">chunk:</span>
+    <span class="hljs-comment"># ...</span>
+    <span class="hljs-attr">deviceMap:</span>
+      <span class="hljs-attr">cacheWithJournal:</span>
+        <span class="hljs-attr">selector:</span>
+          <span class="hljs-attr">matchLabels:</span>
+            <span class="hljs-attr">iomesh.com/bd-deviceType:</span> <span class="hljs-string">disk</span>
+          <span class="hljs-attr">matchExpressions:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">iomesh.com/bd-driverType</span>
+            <span class="hljs-attr">operator:</span> <span class="hljs-string">In</span>
+            <span class="hljs-attr">values:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">SSD</span>
+        <span class="hljs-attr">exclude:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">blockdevice-097b6628acdcd83a2fc6a5fc9c301e01</span>
+      <span class="hljs-attr">dataStore:</span>
+        <span class="hljs-attr">selector:</span>
+          <span class="hljs-attr">matchExpressions:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">iomesh.com/bd-driverType</span>
+            <span class="hljs-attr">operator:</span> <span class="hljs-string">In</span>
+            <span class="hljs-attr">values:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">HDD</span>
+        <span class="hljs-attr">exclude:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">blockdevice-097b6628acdcd83a2fc6a5fc9c301e01</span>
+    <span class="hljs-comment"># ...</span>
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="all-flash-部署模式下的-devicemap-配置示例"></a><a href="#all-flash-部署模式下的-devicemap-配置示例" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>All-Flash 部署模式下的 DeviceMap 配置示例</h4>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">spec:</span>
+  <span class="hljs-comment"># ...</span>
+  <span class="hljs-attr">chunk:</span>
+    <span class="hljs-comment"># ...</span>
+    <span class="hljs-attr">deviceMap:</span>
+      <span class="hljs-attr">dataStoreWithJournal:</span>
+        <span class="hljs-attr">selector:</span>
+          <span class="hljs-attr">matchLabels:</span>
+            <span class="hljs-attr">iomesh.com/bd-deviceType:</span> <span class="hljs-string">disk</span>
+          <span class="hljs-attr">matchExpressions:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">iomesh.com/bd-driverType</span>
+            <span class="hljs-attr">operator:</span> <span class="hljs-string">In</span>
+            <span class="hljs-attr">values:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">SSD</span>
+        <span class="hljs-attr">exclude:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">blockdevice-097b6628acdcd83a2fc6a5fc9c301e01</span>
+    <span class="hljs-comment"># ...</span>
+</code></pre>
+<blockquote>
+<p><strong><em>NOTE</em>: IOMesh 使用的块设备不应包含任何现有的文件系统。 请确保命令 <code>kubectl --namespace iomesh-system -owide get blockdevice</code> 输出的字段 <code>FSTYPE</code> 为空.</strong></p>
+</blockquote>
+<p>获得正确的 deviceMap 配置后，通过运行 <code>kubectl edit --namespace iomesh-system iomesh</code> 将其设置为 <code>spec.chunk.deviceMap</code>，然后运行 <code>kubectl --namespace iomesh-system -o wide get blockdevice</code> 来验证我们筛选的 <code>BlockDevice</code> 的状态变为 <code>Claimed</code></p>
+<pre><code class="hljs css language-bash">kubectl --namespace iomesh-system -o wide get blockdevice
+</code></pre>
+<pre><code class="hljs css language-output">NAME                                           NODENAME             PATH         FSTYPE   SIZE           CLAIMSTATE   STATUS   AGE
+blockdevice<span class="hljs-number">-097</span>b6628acdcd83a2fc6a5fc9c301e01   kind-<span class="hljs-section">control</span>-plane   /dev/vdb1    ext4     <span class="hljs-number">107373116928</span>   Unclaimed    Active   <span class="hljs-number">11</span>m
+blockdevice<span class="hljs-number">-3</span>fa2e2cb7e49bc96f4ed09209644382e   kind-<span class="hljs-section">control</span>-plane   /dev/sda              <span class="hljs-number">9659464192</span>     Claimed      Active   <span class="hljs-number">11</span>m
+blockdevice-f4681681be66411f226d1b6a690270c0   kind-<span class="hljs-section">control</span>-plane   /dev/sdb              <span class="hljs-number">1073742336</span>     Claimed      Active   <span class="hljs-number">11</span>m
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/next/deploy/install-iomesh"><span class="arrow-prev">← </span><span>安装 IOMesh</span></a><a class="docs-next button" href="/next/deploy/setup-storageclass"><span class="function-name-prevnext">创建 StorageClass</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#挂载块设备">挂载块设备</a><ul class="toc-headings"><li><a href="#block-device-对象">Block Device 对象</a></li><li><a href="#devicemap">DeviceMap</a></li></ul></li></ul></nav></div><footer id="footer" class="nav-footer"><div class="footerWrapper"><div class="">IOMesh</div><div class="linkList"><a class="footerLink" href="https://iomesh.com/spec">Spec</a><a class="footerLink" href="http://docs.iomesh.com/next/about-iomesh/introduction" target="_blank" rel="noreferrer">Docs</a><a class="footerLink" href="https://iomesh.com/contact">Contact Us</a><a class="footerLink" href="https://iomesh.com/privacy">Privacy Policy</a><span class=""> | </span><a class="footerLink" href="https://join.slack.com/t/slack-vcm1551/shared_invite/zt-nx33ud5h-~0D_MD5kL0sUrwslB~KF_A" target="_blank" rel="noreferrer">Slack</a><a class="footerLink" href="https://twitter.com/iomeshhq" target="_blank" rel="noreferrer">Twitter</a><a class="footerLink" href="https://www.youtube.com/channel/UCJV59ZDxjm822LK_oUhi7qA" target="_blank" rel="noreferrer">YouTube</a></div></div></footer></div></body></html>

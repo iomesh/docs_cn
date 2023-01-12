@@ -1,0 +1,282 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>安装 IOMesh · Documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## 快速安装指南"/><meta name="docsearch:version" content="next"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="安装 IOMesh · Documentation"/><meta property="og:type" content="website"/><meta property="og:url" content="http://docs.iomesh.com/"/><meta property="og:description" content="## 快速安装指南"/><meta property="og:image" content="http://docs.iomesh.com/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="http://docs.iomesh.com/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/IOMesh_logo_on_white.svg" alt="Documentation"/><h2 class="headerTitleWithLogo">Documentation</h2></a><a href="/versions"><h3>next</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://www.iomesh.com" target="_self">Back to IOMesh Home</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>部署 IOMesh</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">关于 IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/about-iomesh/introduction">介绍</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">部署 IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/deploy/prerequisites">安装准备</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/next/deploy/install-iomesh">安装 IOMesh</a></li><li class="navListItem"><a class="navItem" href="/next/deploy/setup-iomesh">设置 IOMesh</a></li><li class="navListItem"><a class="navItem" href="/next/deploy/setup-storageclass">创建 StorageClass</a></li><li class="navListItem"><a class="navItem" href="/next/deploy/setup-snapshotclass">创建 SnapshotClass</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Volume 操作</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/volume-operations/create-volume">创建 volume</a></li><li class="navListItem"><a class="navItem" href="/next/volume-operations/expand-volume">扩容 volume</a></li><li class="navListItem"><a class="navItem" href="/next/volume-operations/snapshot-restore-and-clone">快照/恢复/克隆</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">IOMesh 运维</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/iomesh-operations/monitoring">监控</a></li><li class="navListItem"><a class="navItem" href="/next/iomesh-operations/cluster-operations">IOMesh 集群运维</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">部署有状态应用</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/stateful-applications/iomesh-for-mysql">使用 IOMesh 部署 MySQL</a></li><li class="navListItem"><a class="navItem" href="/next/stateful-applications/iomesh-for-cassandra">使用 IOMesh 部署 Cassandra</a></li><li class="navListItem"><a class="navItem" href="/next/stateful-applications/iomesh-for-mongodb">使用 IOMesh 部署 MongoDB</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">高级功能</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/advanced-usage/external-iscsi">使用 IOMesh 作为 iSCSI Target</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">附录</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/additional-info/performance-testing">性能测试</a></li><li class="navListItem"><a class="navItem" href="/next/additional-info/release-notes">Release Notes</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">参考文档</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/references/metrics">Metrics</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">安装 IOMesh</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="快速安装指南"></a><a href="#快速安装指南" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>快速安装指南</h2>
+<p>执行下述脚本进行快速安装</p>
+<blockquote>
+<p><strong><em>NOTE</em>: Helm3 将被自动安装.</strong></p>
+</blockquote>
+<div class="tabs"><div class="nav-tabs"><div id="tab-group-4-tab-5" class="nav-link active" data-group="group_4" data-tab="tab-group-4-content-5">RHEL7/CentOS7</div><div id="tab-group-4-tab-6" class="nav-link" data-group="group_4" data-tab="tab-group-4-content-6">RHEL8/CentOS8/CoreOS</div></div><div class="tab-content"><div id="tab-group-4-content-5" class="tab-pane active" data-group="group_4" tabindex="-1"><div><span><pre><code class="hljs css language-shell"><span class="hljs-meta">#</span><span class="bash"> 每一个运行 IOMesh 的 K8s Worker 节点需要有一个 IP 地址属于 IOMESH_DATA_CIDR 网段</span><br />export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iomesh_el7.sh | sh -<br /></code></pre>
+</span></div></div><div id="tab-group-4-content-6" class="tab-pane" data-group="group_4" tabindex="-1"><div><span><pre><code class="hljs css language-shell"><span class="hljs-meta">#</span><span class="bash"> 每一个运行 IOMesh 的 K8s Worker 节点需要有一个 IP 地址属于 IOMESH_DATA_CIDR 网段</span><br />export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iomesh_el8.sh | sh -<br /></code></pre>
+</span></div></div></div></div>
+<p>等待几分钟。 如果所有 IOMesh Cluster pod 都在运行，则 IOMesh 将成功安装。</p>
+<pre><code class="hljs css language-shell">watch kubectl get --namespace iomesh-system pods
+</code></pre>
+<p>IOMesh 已安装完成!</p>
+<blockquote>
+<p><strong><em>NOTE</em>: 通过脚本一键安装的 IOMesh 资源将被保留，方便在安装过程中出现任何错误时进行故障排除。 您可以运行以下脚本从 Kubernetes 集群中删除所有 IOMesh 资源: <code>curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -</code></strong></p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="自定义安装指南"></a><a href="#自定义安装指南" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>自定义安装指南</h2>
+<p>要使用自定义配置进行安装，请按照以下步骤操作。</p>
+<h3><a class="anchor" aria-hidden="true" id="安装-helm3"></a><a href="#安装-helm3" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装 Helm3</h3>
+<blockquote>
+<p><strong><em>NOTE</em>: 如果 Helm3 已安装则跳过该步骤。</strong></p>
+</blockquote>
+<pre><code class="hljs css language-shell">curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+</code></pre>
+<p>更多细节参考 Helm 官方文档 <strong><a href="https://helm.sh/docs/intro/install/">Install Helm</a></strong>.</p>
+<h3><a class="anchor" aria-hidden="true" id="添加-iomesh-helm-repo"></a><a href="#添加-iomesh-helm-repo" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>添加 IOMesh Helm Repo</h3>
+<pre><code class="hljs css language-shell">helm repo add iomesh http://iomesh.com/charts
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="安装-iomesh"></a><a href="#安装-iomesh" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装 IOMesh</h3>
+<ol>
+<li><p>渲染 IOMesh 默认配置文件到 <code>iomesh.yaml</code> 中.</p>
+<pre><code class="hljs css language-shell">helm show values iomesh/iomesh &gt; iomesh.yaml
+</code></pre></li>
+<li><p>配置 <code>iomesh.yaml</code>.</p>
+<p><strong>(必须)</strong> 根据您的网络环境填写 <code>dataCIDR</code> 字段</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">iomesh:</span>
+  <span class="hljs-attr">chunk:</span>
+    <span class="hljs-attr">dataCIDR:</span> <span class="hljs-string">"10.234.1.0/24"</span>
+</code></pre>
+<p><strong>(可选)</strong> 配置集群的部署模式，默认是混闪模式。如果要部署为全闪则需要设则 <code>diskDeploymentMode</code> 字段为<code>allFlash</code></p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">diskDeploymentMode:</span> <span class="hljs-string">"hybridFlash"</span> <span class="hljs-comment"># set `diskDeploymentMode` to `allFlash` in all-flash deployment mode</span>
+</code></pre>
+<p><strong>(可选)</strong> 如果只期望将 IOMesh 使用部分 Kubernetes node 的磁盘，在 <code>chunk.podPolicy.affinity</code> 字段配置对应 node 的 label. 例如:</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">iomesh:</span>
+  <span class="hljs-attr">chunk:</span>
+    <span class="hljs-attr">podPolicy:</span>
+      <span class="hljs-attr">affinity:</span>
+        <span class="hljs-attr">nodeAffinity:</span>
+          <span class="hljs-attr">requiredDuringSchedulingIgnoredDuringExecution:</span>
+            <span class="hljs-attr">nodeSelectorTerms:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-attr">matchExpressions:</span>
+              <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">kubernetes.io/hostname</span> <span class="hljs-comment"># specific node label's key</span>
+                <span class="hljs-attr">operator:</span> <span class="hljs-string">In</span>
+                <span class="hljs-attr">values:</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">iomesh-worker-0</span> <span class="hljs-comment"># specific node label's value</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">iomesh-worker-1</span>
+</code></pre>
+<p>更多的 pod affinity 配置规则参考: <a href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity">pod affinity</a>.</p></li>
+<li><p>安装 IOMesh 集群</p>
+<pre><code class="hljs css language-shell">helm install iomesh iomesh/iomesh \
+    --create-namespace \
+    --namespace iomesh-system \
+    --values iomesh.yaml \
+    --wait
+</code></pre>
+<pre><code class="hljs css language-output">NAME: iomesh
+LAST DEPLOYED: Wed Jun 30 16:00:32 2021
+NAMESPACE: iomesh-system
+STATUS: deployed
+REVISION: 1
+<span class="hljs-keyword">TEST </span>SUITE: None
+</code></pre></li>
+<li><p>检查安装结果</p>
+<pre><code class="hljs css language-bash">kubectl --namespace iomesh-system get pods
+</code></pre>
+<pre><code class="hljs css language-output">NAME                                                  READY   STATUS    RESTARTS   AGE
+csi-driver-controller-plugin<span class="hljs-number">-89</span>b55d6b5<span class="hljs-number">-8</span>r2fc          <span class="hljs-number">6</span>/<span class="hljs-number">6</span>     Running   <span class="hljs-number">10</span>         <span class="hljs-number">2</span>m8s
+csi-driver-controller-plugin<span class="hljs-number">-89</span>b55d6b5-d4rbr          <span class="hljs-number">6</span>/<span class="hljs-number">6</span>     Running   <span class="hljs-number">10</span>         <span class="hljs-number">2</span>m8s
+csi-driver-controller-plugin<span class="hljs-number">-89</span>b55d6b5-n5s48          <span class="hljs-number">6</span>/<span class="hljs-number">6</span>     Running   <span class="hljs-number">10</span>         <span class="hljs-number">2</span>m8s
+csi-driver-node-plugin<span class="hljs-number">-9</span>wccv                          <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">2</span>          <span class="hljs-number">2</span>m8s
+csi-driver-node-plugin-mbpnk                          <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">2</span>          <span class="hljs-number">2</span>m8s
+csi-driver-node-plugin-x6qrk                          <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">2</span>          <span class="hljs-number">2</span>m8s
+iomesh-chunk<span class="hljs-number">-0</span>                                        <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">52</span>s
+iomesh-chunk<span class="hljs-number">-1</span>                                        <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">47</span>s
+iomesh-chunk<span class="hljs-number">-2</span>                                        <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">43</span>s
+iomesh-hostpath-provisioner<span class="hljs-number">-8f</span>zvj                     <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m8s
+iomesh-hostpath-provisioner-gfl9k                     <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m8s
+iomesh-hostpath-provisioner-htzx9                     <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m8s
+iomesh-iscsi-redirector<span class="hljs-number">-96672</span>                         <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">1</span>          <span class="hljs-number">55</span>s
+iomesh-iscsi-redirector-c2pwm                         <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">1</span>          <span class="hljs-number">55</span>s
+iomesh-iscsi-redirector-pcx8c                         <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">1</span>          <span class="hljs-number">55</span>s
+iomesh-meta<span class="hljs-number">-0</span>                                         <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">55</span>s
+iomesh-meta<span class="hljs-number">-1</span>                                         <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">55</span>s
+iomesh-meta<span class="hljs-number">-2</span>                                         <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">55</span>s
+iomesh-openebs-ndm<span class="hljs-number">-5457</span>z                              <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m8s
+iomesh-openebs-ndm<span class="hljs-number">-599</span>qb                              <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m8s
+iomesh-openebs-ndm-cluster-exporter<span class="hljs-number">-68</span>c757948-gszzx   <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m8s
+iomesh-openebs-ndm-node-exporter-kzjfc                <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m8s
+iomesh-openebs-ndm-node-exporter-qc9pt                <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m8s
+iomesh-openebs-ndm-node-exporter-v7sh7                <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m8s
+iomesh-openebs-ndm-operator<span class="hljs-number">-56</span>cfb5d7b6-srfzm          <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m8s
+iomesh-openebs-ndm-svp9n                              <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m8s
+iomesh-zookeeper<span class="hljs-number">-0</span>                                    <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m3s
+iomesh-zookeeper<span class="hljs-number">-1</span>                                    <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">102</span>s
+iomesh-zookeeper<span class="hljs-number">-2</span>                                    <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">76</span>s
+iomesh-zookeeper-operator<span class="hljs-number">-7</span>b5f4b98dc<span class="hljs-number">-6</span>mztk            <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m8s
+operator<span class="hljs-number">-85877979</span><span class="hljs-number">-66888</span>                               <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m8s
+operator<span class="hljs-number">-85877979</span>-s94vz                               <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m8s
+operator<span class="hljs-number">-85877979</span>-xqtml                               <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m8s
+</code></pre></li>
+</ol>
+<p>IOMesh 集群现在已成功部署. 接下来开始设置 IOMesh <a href="/next/deploy/setup-iomesh">Setup IOMesh</a>.</p>
+<h2><a class="anchor" aria-hidden="true" id="离线安装-iomesh"></a><a href="#离线安装-iomesh" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>离线安装 IOMesh</h2>
+<h3><a class="anchor" aria-hidden="true" id="准备离线安装包"></a><a href="#准备离线安装包" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>准备离线安装包</h3>
+<ol>
+<li><p>下载 <a href="https://download.smartx.com/iomesh-offline-v0.11.1.tgz">IOMesh offline installation package</a>.</p></li>
+<li><p>解压离线安装包</p>
+<pre><code class="hljs css language-shell">tar -xf  iomesh-offline-v0.11.1.tgz &amp;&amp; cd iomesh-offline
+</code></pre></li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="加载-iomesh-镜像"></a><a href="#加载-iomesh-镜像" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>加载 IOMesh 镜像</h3>
+<p>在每个 Kubernetes node 上加载 IOMesh 镜像，然后根据您的容器运行时和容器管理工具执行相应的镜像加载脚本</p>
+<div class="tabs"><div class="nav-tabs"><div id="tab-group-7-tab-8" class="nav-link active" data-group="group_7" data-tab="tab-group-7-content-8">Docker</div><div id="tab-group-7-tab-9" class="nav-link" data-group="group_7" data-tab="tab-group-7-content-9">Containerd</div><div id="tab-group-7-tab-10" class="nav-link" data-group="group_7" data-tab="tab-group-7-content-10">Podman</div></div><div class="tab-content"><div id="tab-group-7-content-8" class="tab-pane active" data-group="group_7" tabindex="-1"><div><span><pre><code class="hljs css language-shell">docker load --input ./images/iomesh-offline-images.tar<br /></code></pre>
+</span></div></div><div id="tab-group-7-content-9" class="tab-pane" data-group="group_7" tabindex="-1"><div><span><pre><code class="hljs css language-shell">ctr --namespace k8s.io image import ./images/iomesh-offline-images.tar<br /></code></pre>
+</span></div></div><div id="tab-group-7-content-10" class="tab-pane" data-group="group_7" tabindex="-1"><div><span><pre><code class="hljs css language-shell">podman load --input ./images/iomesh-offline-images.tar<br /></code></pre>
+</span></div></div></div></div>
+<h3><a class="anchor" aria-hidden="true" id="使用离线安装包安装-iomesh"></a><a href="#使用离线安装包安装-iomesh" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>使用离线安装包安装 IOMesh</h3>
+<h4><a class="anchor" aria-hidden="true" id="安装-iomesh-1"></a><a href="#安装-iomesh-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装 IOMesh</h4>
+<ol>
+<li><p>渲染 IOMesh 默认配置文件到 <code>iomesh.yaml</code> 中</p>
+<pre><code class="hljs css language-shell">./helm show values charts/iomesh &gt; iomesh.yaml
+</code></pre></li>
+<li><p>配置 <code>iomesh.yaml</code>.</p>
+<p><strong>(必须)</strong> 根据您的网络环境填写 <code>dataCIDR</code> 字段.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">iomesh:</span>
+  <span class="hljs-attr">chunk:</span>
+    <span class="hljs-attr">dataCIDR:</span> <span class="hljs-string">"10.234.1.0/24"</span> 
+</code></pre>
+<p><strong>(可选)</strong> 配置集群的部署模式，默认是混闪模式。如果要部署为全闪则需要设则 <code>diskDeploymentMode</code> 字段为<code>allFlash</code></p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">iomesh:</span>
+  <span class="hljs-attr">chunk:</span>
+    <span class="hljs-attr">podPolicy:</span>
+      <span class="hljs-attr">affinity:</span>
+        <span class="hljs-attr">nodeAffinity:</span>
+          <span class="hljs-attr">requiredDuringSchedulingIgnoredDuringExecution:</span>
+            <span class="hljs-attr">nodeSelectorTerms:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-attr">matchExpressions:</span>
+              <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">kubernetes.io/hostname</span> <span class="hljs-comment"># specific node label's key</span>
+                <span class="hljs-attr">operator:</span> <span class="hljs-string">In</span>
+                <span class="hljs-attr">values:</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">iomesh-worker-0</span> <span class="hljs-comment"># specific node label's value</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">iomesh-worker-1</span>
+</code></pre>
+<p>更多的 pod affinity 配置规则参考: <a href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity">pod affinity</a></p></li>
+<li><p>安装 IOMesh 集群.</p>
+<pre><code class="hljs css language-shell">./helm install iomesh ./charts/iomesh \
+    --create-namespace \
+    --namespace iomesh-system \
+    --values iomesh.yaml \
+    --wait
+</code></pre>
+<pre><code class="hljs css language-output">NAME: iomesh
+LAST DEPLOYED: Wed Jun 30 16:00:32 2021
+NAMESPACE: iomesh-system
+STATUS: deployed
+REVISION: 1
+<span class="hljs-keyword">TEST </span>SUITE: None
+</code></pre></li>
+<li><p>检查安装结果</p>
+<pre><code class="hljs css language-bash">kubectl --namespace iomesh-system get pods
+</code></pre>
+<pre><code class="hljs css language-output">NAME                                                   READY   STATUS    RESTARTS   AGE
+iomesh-chunk<span class="hljs-number">-0</span>                                         <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">102</span>s
+iomesh-chunk<span class="hljs-number">-1</span>                                         <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">98</span>s
+iomesh-chunk<span class="hljs-number">-2</span>                                         <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">94</span>s
+iomesh-csi-driver-controller-plugin<span class="hljs-number">-5</span>b66557959-jhshb   <span class="hljs-number">6</span>/<span class="hljs-number">6</span>     Running   <span class="hljs-number">10</span>         <span class="hljs-number">3</span>m20s
+iomesh-csi-driver-controller-plugin<span class="hljs-number">-5</span>b66557959-p4m9x   <span class="hljs-number">6</span>/<span class="hljs-number">6</span>     Running   <span class="hljs-number">10</span>         <span class="hljs-number">3</span>m20s
+iomesh-csi-driver-controller-plugin<span class="hljs-number">-5</span>b66557959-w9qbq   <span class="hljs-number">6</span>/<span class="hljs-number">6</span>     Running   <span class="hljs-number">10</span>         <span class="hljs-number">3</span>m20s
+iomesh-csi-driver-node-plugin<span class="hljs-number">-6</span>pjpn                    <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">2</span>          <span class="hljs-number">3</span>m20s
+iomesh-csi-driver-node-plugin-dj2cd                    <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">2</span>          <span class="hljs-number">3</span>m20s
+iomesh-csi-driver-node-plugin-stbdw                    <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">2</span>          <span class="hljs-number">3</span>m20s
+iomesh-hostpath-provisioner<span class="hljs-number">-55</span>j8t                      <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+iomesh-hostpath-provisioner-c7jlz                      <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+iomesh-hostpath-provisioner-jqrsd                      <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+iomesh-iscsi-redirector<span class="hljs-number">-675</span>vr                          <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">1</span>          <span class="hljs-number">119</span>s
+iomesh-iscsi-redirector-d2j4m                          <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">1</span>          <span class="hljs-number">119</span>s
+iomesh-iscsi-redirector-sjfjk                          <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">1</span>          <span class="hljs-number">119</span>s
+iomesh-meta<span class="hljs-number">-0</span>                                          <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">104</span>s
+iomesh-meta<span class="hljs-number">-1</span>                                          <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">104</span>s
+iomesh-meta<span class="hljs-number">-2</span>                                          <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">104</span>s
+iomesh-openebs-ndm<span class="hljs-number">-569</span>pb                               <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+iomesh-openebs-ndm<span class="hljs-number">-9f</span>hln                               <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+iomesh-openebs-ndm-cluster-exporter<span class="hljs-number">-68</span>c757948-vkkdz    <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+iomesh-openebs-ndm-m64j5                               <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+iomesh-openebs-ndm-node-exporter<span class="hljs-number">-2</span>brc6                 <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+iomesh-openebs-ndm-node-exporter-g97q5                 <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+iomesh-openebs-ndm-node-exporter-kvn88                 <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+iomesh-openebs-ndm-operator<span class="hljs-number">-56</span>cfb5d7b6-gwlg9           <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+iomesh-zookeeper<span class="hljs-number">-0</span>                                     <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m14s
+iomesh-zookeeper<span class="hljs-number">-1</span>                                     <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m59s
+iomesh-zookeeper<span class="hljs-number">-2</span>                                     <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m20s
+iomesh-zookeeper-operator<span class="hljs-number">-7</span>b5f4b98dc-fxfb6             <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+operator<span class="hljs-number">-85877979</span><span class="hljs-number">-5f</span>vvn                                <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+operator<span class="hljs-number">-85877979</span><span class="hljs-number">-74</span>rl6                                <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+operator<span class="hljs-number">-85877979</span>-cvgcz                                <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+</code></pre></li>
+</ol>
+<p>IOMesh 集群现在已成功部署. 接下来开始设置 IOMesh <a href="/next/deploy/setup-iomesh">Setup IOMesh</a>.</p>
+<h2><a class="anchor" aria-hidden="true" id="在-openshift-容器平台安装-iomesh"></a><a href="#在-openshift-容器平台安装-iomesh" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>在 OpenShift 容器平台安装 IOMesh</h2>
+<p>您还可以通过 Red Hat OpenShift 容器平台内的 OperatorHub 安装和使用 IOMesh</p>
+<h3><a class="anchor" aria-hidden="true" id="安装前置步骤"></a><a href="#安装前置步骤" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装前置步骤</h3>
+<p>运行下面的脚本，这将安装 IOMesh Operator 的依赖项并为 OpenShift 集群配置 IOMesh 相关设置。 请注意，脚本需要在 oc 或 kubectl 可以访问 OpenShift 集群的环境中执行</p>
+<pre><code class="hljs css language-shell">curl -sSL https://iomesh.run/iomesh-operator-pre-install-openshift.sh | sh -
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="安装-iomesh-operator"></a><a href="#安装-iomesh-operator" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装 IOMesh Operator</h3>
+<ol>
+<li><p>登录 OpenShift Container Platform，然后打开 OperatorHub 页面。 在OperatorHub页面，选择IOMesh Operator，点击Install，安装IOMesh Operator</p></li>
+<li><p>依次选择Installed Operators &gt; IOMesh Operator &gt; Create instance &gt; YAML view，然后根据 IOMesh <a href="https://iomesh.run/iomesh.yaml">YAML</a> 配置 IOMesh. 将 <code>spec.dataCIDR</code> 更改为您的存储网络 CIDR</p></li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="安装-csi-driver"></a><a href="#安装-csi-driver" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>安装 CSI Driver</h3>
+<p>运行以下脚本以安装 IOMesh CSI Driver。 请注意，脚本应在 oc 或 kubectl 可以访问 OpenShift 集群的环境中执行</p>
+<pre><code class="hljs css language-shell">curl -sSL https://iomesh.run/iomesh-operator-post-install-openshift.sh | sh -
+</code></pre>
+<p>IOMesh 集群现在已成功部署. 接下来开始设置 IOMesh <a href="/next/deploy/setup-iomesh">Setup IOMesh</a>.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/next/deploy/prerequisites"><span class="arrow-prev">← </span><span>安装准备</span></a><a class="docs-next button" href="/next/deploy/setup-iomesh"><span>设置 IOMesh</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#快速安装指南">快速安装指南</a></li><li><a href="#自定义安装指南">自定义安装指南</a><ul class="toc-headings"><li><a href="#安装-helm3">安装 Helm3</a></li><li><a href="#添加-iomesh-helm-repo">添加 IOMesh Helm Repo</a></li><li><a href="#安装-iomesh">安装 IOMesh</a></li></ul></li><li><a href="#离线安装-iomesh">离线安装 IOMesh</a><ul class="toc-headings"><li><a href="#准备离线安装包">准备离线安装包</a></li><li><a href="#加载-iomesh-镜像">加载 IOMesh 镜像</a></li><li><a href="#使用离线安装包安装-iomesh">使用离线安装包安装 IOMesh</a></li></ul></li><li><a href="#在-openshift-容器平台安装-iomesh">在 OpenShift 容器平台安装 IOMesh</a><ul class="toc-headings"><li><a href="#安装前置步骤">安装前置步骤</a></li><li><a href="#安装-iomesh-operator">安装 IOMesh Operator</a></li><li><a href="#安装-csi-driver">安装 CSI Driver</a></li></ul></li></ul></nav></div><footer id="footer" class="nav-footer"><div class="footerWrapper"><div class="">IOMesh</div><div class="linkList"><a class="footerLink" href="https://iomesh.com/spec">Spec</a><a class="footerLink" href="http://docs.iomesh.com/next/about-iomesh/introduction" target="_blank" rel="noreferrer">Docs</a><a class="footerLink" href="https://iomesh.com/contact">Contact Us</a><a class="footerLink" href="https://iomesh.com/privacy">Privacy Policy</a><span class=""> | </span><a class="footerLink" href="https://join.slack.com/t/slack-vcm1551/shared_invite/zt-nx33ud5h-~0D_MD5kL0sUrwslB~KF_A" target="_blank" rel="noreferrer">Slack</a><a class="footerLink" href="https://twitter.com/iomeshhq" target="_blank" rel="noreferrer">Twitter</a><a class="footerLink" href="https://www.youtube.com/channel/UCJV59ZDxjm822LK_oUhi7qA" target="_blank" rel="noreferrer">YouTube</a></div></div></footer></div></body></html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>使用 IOMesh 作为 iSCSI Target · Documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="IOMesh 支持直接对外提供 iSCSI 接入服务。用户可以通过创建 PVC 的方式创建一个iSCSI LUN（以下简称 External iSCSI LUN，在 K8s 集群外可以使用任意一个 iSCSI 客户端（如`open-iscsi`）连接 iSCSI LUN。"/><meta name="docsearch:version" content="next"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="使用 IOMesh 作为 iSCSI Target · Documentation"/><meta property="og:type" content="website"/><meta property="og:url" content="http://docs.iomesh.com/"/><meta property="og:description" content="IOMesh 支持直接对外提供 iSCSI 接入服务。用户可以通过创建 PVC 的方式创建一个iSCSI LUN（以下简称 External iSCSI LUN，在 K8s 集群外可以使用任意一个 iSCSI 客户端（如`open-iscsi`）连接 iSCSI LUN。"/><meta property="og:image" content="http://docs.iomesh.com/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="http://docs.iomesh.com/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/IOMesh_logo_on_white.svg" alt="Documentation"/><h2 class="headerTitleWithLogo">Documentation</h2></a><a href="/versions"><h3>next</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://www.iomesh.com" target="_self">Back to IOMesh Home</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>高级功能</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">关于 IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/about-iomesh/introduction">介绍</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">部署 IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/deploy/prerequisites">安装准备</a></li><li class="navListItem"><a class="navItem" href="/next/deploy/install-iomesh">安装 IOMesh</a></li><li class="navListItem"><a class="navItem" href="/next/deploy/setup-iomesh">设置 IOMesh</a></li><li class="navListItem"><a class="navItem" href="/next/deploy/setup-storageclass">创建 StorageClass</a></li><li class="navListItem"><a class="navItem" href="/next/deploy/setup-snapshotclass">创建 SnapshotClass</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Volume 操作</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/volume-operations/create-volume">创建 volume</a></li><li class="navListItem"><a class="navItem" href="/next/volume-operations/expand-volume">扩容 volume</a></li><li class="navListItem"><a class="navItem" href="/next/volume-operations/snapshot-restore-and-clone">快照/恢复/克隆</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">IOMesh 运维</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/iomesh-operations/monitoring">监控</a></li><li class="navListItem"><a class="navItem" href="/next/iomesh-operations/cluster-operations">IOMesh 集群运维</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">部署有状态应用</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/stateful-applications/iomesh-for-mysql">使用 IOMesh 部署 MySQL</a></li><li class="navListItem"><a class="navItem" href="/next/stateful-applications/iomesh-for-cassandra">使用 IOMesh 部署 Cassandra</a></li><li class="navListItem"><a class="navItem" href="/next/stateful-applications/iomesh-for-mongodb">使用 IOMesh 部署 MongoDB</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">高级功能</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/next/advanced-usage/external-iscsi">使用 IOMesh 作为 iSCSI Target</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">附录</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/additional-info/performance-testing">性能测试</a></li><li class="navListItem"><a class="navItem" href="/next/additional-info/release-notes">Release Notes</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">参考文档</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/references/metrics">Metrics</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">使用 IOMesh 作为 iSCSI Target</h1></header><article><div><span><p>IOMesh 支持直接对外提供 iSCSI 接入服务。用户可以通过创建 PVC 的方式创建一个iSCSI LUN（以下简称 External iSCSI LUN，在 K8s 集群外可以使用任意一个 iSCSI 客户端（如<code>open-iscsi</code>）连接 iSCSI LUN。</p>
+<h2><a class="anchor" aria-hidden="true" id="配置稳定的-iscsi-接入点"></a><a href="#配置稳定的-iscsi-接入点" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>配置稳定的 iSCSI 接入点</h2>
+<p>为了保证 iSCSI 服务接入点的高可用和保持稳定的 IP 地址，IOMesh 采用了 K8s 的 LoadBalancer 类型的 Service 作为 iSCSI 服务接入点。该服务需要用户自行创建，具体步骤在不同的 IOMesh 集群部署环境中有所不同：</p>
+<ul>
+<li>当 IOMesh 集群部署在 GCP、AWS、Azure 等原生支持 K8s 中 LoadBalancer 类型服务的云提供中时（详细的云提供商列表，请参阅 [internal-load-balancer] (<a href="https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer)">https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer)</a>)，用户可以参考下述的 <code>In-Tree LoadBalancer</code> 部分。</li>
+<li>对于其他部署场景（例如裸金属），用户可以参考下述的 <code>Out-of-Tree LoadBalancer</code> 部分。</li>
+</ul>
+<div class="tabs"><div class="nav-tabs"><div id="tab-group-1-tab-2" class="nav-link active" data-group="group_1" data-tab="tab-group-1-content-2">In-Tree LoadBalancer</div><div id="tab-group-1-tab-3" class="nav-link" data-group="group_1" data-tab="tab-group-1-content-3">Out-of-Tree LoadBalancer</div></div><div class="tab-content"><div id="tab-group-1-content-2" class="tab-pane active" data-group="group_1" tabindex="-1"><div><span><ol>
+<li><p>创建 <code>iomesh-access-lb-service.yaml</code> 文件写入如下内容:</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br /><span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span><br /><span class="hljs-attr">metadata:</span><br />  <span class="hljs-attr">name:</span> <span class="hljs-string">iomesh-access-lb</span><br />  <span class="hljs-attr">namespace:</span> <span class="hljs-string">iomesh-system</span><br /><span class="hljs-attr">spec:</span><br />  <span class="hljs-attr">ports:</span><br />  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">iscsi</span><br />    <span class="hljs-attr">port:</span> <span class="hljs-number">3260</span><br />    <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br />    <span class="hljs-attr">targetPort:</span> <span class="hljs-number">3260</span><br />  <span class="hljs-attr">selector:</span><br />    <span class="hljs-attr">app.kubernetes.io/name:</span> <span class="hljs-string">iomesh-iscsi-redirector</span><br />  <span class="hljs-attr">type:</span> <span class="hljs-string">LoadBalancer</span><br /></code></pre></li>
+<li><p>生效该 service 配置</p>
+<pre><code class="hljs css language-bash">kubectl apply -f iomesh-access-lb-service.yaml<br /></code></pre></li>
+<li><p>检查 service 状态</p>
+<pre><code class="hljs css language-bash">kubectl get service iomesh-access-lb -n iomesh-system<br /></code></pre></li>
+</ol>
+<p>K8s 会调用 IaaS 平台对应的接口，为你创建的服务分配一个 external-ip 作为 LoadBalancer 的入口。</p>
+<p>最后，执行 <code>kubectl edit iomesh -n iomesh-system</code> 命令，将 <code>spec.redirector.iscsiVirtualIP</code> 设置为 <code>iomesh-access-lb</code> 服务的 external-ip。保存后，<code>iomesh-iscsi-redirector</code> Pod 会自动重启使设置生效。</p>
+<blockquote>
+<p><strong><em>NOTE</em>:</strong> <code>spec.redirector.iscsiVirtualIP</code> 需要和 <code>iomesh-access-lb</code> 服务的 external-ip 一致。 如果 external-ip 发生变化，需要同时更新 <code>spec.redirector.iscsiVi rtualIP</code>。</p>
+</blockquote>
+</span></div></div><div id="tab-group-1-content-3" class="tab-pane" data-group="group_1" tabindex="-1"><div><span><ol>
+<li><p>创建 <code>iomesh-access-lb-service.yaml</code> 文件写入如下内容:</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br /><span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span><br /><span class="hljs-attr">metadata:</span><br />  <span class="hljs-attr">name:</span> <span class="hljs-string">iomesh-access-lb</span><br />  <span class="hljs-attr">namespace:</span> <span class="hljs-string">iomesh-system</span><br /><span class="hljs-attr">spec:</span><br />  <span class="hljs-attr">ports:</span><br />  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">iscsi</span><br />    <span class="hljs-attr">port:</span> <span class="hljs-number">3260</span><br />    <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br />    <span class="hljs-attr">targetPort:</span> <span class="hljs-number">3260</span><br />  <span class="hljs-attr">selector:</span><br />    <span class="hljs-attr">app.kubernetes.io/name:</span> <span class="hljs-string">iomesh-iscsi-redirector</span><br />  <span class="hljs-attr">type:</span> <span class="hljs-string">LoadBalancer</span><br /></code></pre></li>
+<li><p>生效该 service 配置</p>
+<pre><code class="hljs css language-bash">kubectl apply -f iomesh-access-lb-service.yaml<br /></code></pre></li>
+<li><p>检查 service 状态</p>
+<pre><code class="hljs css language-bash">kubectl get service iomesh-access-lb -n iomesh-system<br /></code></pre></li>
+</ol>
+<p>由于 IOMesh 运行在裸金属环境或其他不原生支持 K8s 中 LoadBalancer 类型服务的环境中，因此 K8s 不提供 LoadBalancer 的默认实现，创建的 LoadBalancer Service 将始终处于 pending 状态。现在用户需要在 K8s 集群中安装 <code>MetallLB</code> 作为负载均衡器的默认实现，下面介绍安装配置方法。</p>
+<ol>
+<li><p>确保集群满足 <code>MetalLB</code> 的安装要求 <a href="https://metallb.universe.tf/installation/#preparation">Installation Preparation</a>。</p></li>
+<li><p>安装 <code>MetalLB</code></p>
+<pre><code class="hljs css language-bash">helm repo add metallb https://metallb.github.io/metallb<br />helm install metallb metallb/metallb --version 0.12.1 -n iomesh-system<br /></code></pre></li>
+<li><p>创建 <code>MetalLB</code> ConfigMap 文件 <code>metallb-config.yaml</code>，将 <code>MetalLB</code> 的工作模式设置为 layer2（基于arp），并为 <code>MetalLB</code> 分配一个IP地址池</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br /><span class="hljs-attr">kind:</span> <span class="hljs-string">ConfigMap</span><br /><span class="hljs-attr">metadata:</span><br />  <span class="hljs-attr">namespace:</span> <span class="hljs-string">iomesh-system</span><br />  <span class="hljs-attr">name:</span> <span class="hljs-string">metallb</span><br /><span class="hljs-attr">data:</span><br />  <span class="hljs-attr">config:</span> <span class="hljs-string">|<br />    address-pools:<br />    - name: iomesh-access-address-pools<br />      protocol: layer2<br />      addresses:<br />      - &lt;fill-in-your-ip-address-pool-here&gt; # eg: "192.168.1.100-192.168.1.110" or "192.168.2.0/24"<br /></span></code></pre></li>
+</ol>
+<p>将 <code>&lt;fill-in-your-ip-address-pool-here&gt;</code> 中的注释部分替换为物理网络中未使用的 IP 地址池，可以使用 ip-range 格式，如 &quot;192.168.1.100-192.168.1.110”，或使用子网掩码格式，例如 “192.168.2.0/24”。</p>
+<ol start="4">
+<li><p>生效 ConfigMap 配置</p>
+<pre><code class="hljs css language-bash">kubectl apply -f metallb-config.yaml<br /></code></pre></li>
+<li><p>查看服务状态，确保 IP 地址池中的 external-ip 已经分配给 <code>MetalLB</code></p>
+<pre><code class="hljs css language-bash">watch kubectl get service iomesh-access-lb -n iomesh-system<br /></code></pre></li>
+</ol>
+<p>最后，执行<code>kubectl edit iomesh -n iomesh-system</code>命令，将<code>spec.redirector.iscsiVirtualIP</code>设置为<code>iomesh-access-lb</code>服务的external-ip。 保存后，<code>iomesh-iscsi-redirector</code> Pod 会自动重启使设置生效。</p>
+<blockquote>
+<p><strong><em>NOTE</em>:</strong> <code>spec.redirector.iscsiVirtualIP</code> 需要和 <code>iomesh-access-lb</code> 服务的 external-ip 一致。 如果 external-ip 发生变化，需要同时更新 <code>spec.redirector.iscsiVi rtualIP</code>。</p>
+</blockquote>
+</span></div></div></div></div>
+<h2><a class="anchor" aria-hidden="true" id="使用-pvc-创建-external-iscsi-lun"></a><a href="#使用-pvc-创建-external-iscsi-lun" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>使用 PVC 创建 External iSCSI LUN</h2>
+<p>要使用 PVC 创建外部 iSCSI LUN，您需要在 PVC 中添加两个 annotation 字段。下面给出了字段的描述和完整示例。</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">PersistentVolumeClaim</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">external-iscsi</span>
+  <span class="hljs-attr">annotations:</span>
+    <span class="hljs-comment"># 将 PVC 标记为集群外部使用的 LUN</span>
+    <span class="hljs-attr">iomesh.com/external-use:</span> <span class="hljs-string">"true"</span>
+    <span class="hljs-comment"># 设置 LUN 的 initiator iqn acl。 如果不配置该字段，则禁止所有 initiator 的 login 操作。</span>
+    <span class="hljs-comment"># 当 PVC 的 accessModes 为 RWO 时，该字段只能取一个值； 当 PVC 的 accessModes</span>
+    <span class="hljs-comment"># 为 RWX 时，这个字段可以有多个值，用逗号隔开。 如果要放行所有的 iqns，配置为“*/*”</span>
+    <span class="hljs-attr">iomesh.com/iscsi-lun-iqn-allow-list:</span> <span class="hljs-string">"iqn.1994-05.com.example:a6c97f775dcb"</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">storageClassName:</span> <span class="hljs-string">iomesh-csi-driver</span>
+  <span class="hljs-attr">accessModes:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">ReadWriteOnce</span>
+  <span class="hljs-attr">resources:</span>
+    <span class="hljs-attr">requests:</span>
+      <span class="hljs-attr">storage:</span> <span class="hljs-string">1Gi</span>
+</code></pre>
+<blockquote>
+<p><strong><em>NOTE</em>:</strong> <code>iomesh.com/iscsi-lun-iqn-allow-list</code> 字段可以在 PVC 创建期间或 PVC 创建之后设置，支持动态更新。 一般可以通过 <code>cat /etc/iscsi/initiatorname.iscsi</code> 命令获取 iSCSI 客户端的 iqn。</p>
+</blockquote>
+<p>PVC 创建并进入 Bound 状态后，可以查看对应 PV 的<code>spec.volumeAttributes.iscsiEntrypoint</code>字段。</p>
+<pre><code class="hljs css language-bash">kubectl get pv pvc-d84b4657-7ab5-4212-9270-ce40e6a1356a -o jsonpath=<span class="hljs-string">'{.spec.csi.volumeAttributes.iscsiEndpoint}'</span>
+<span class="hljs-comment"># output</span>
+iscsi://cluster-loadbalancer-ip:3260/iqn.2016-02.com.smartx:system:54e7022b-2dcc-4b43-800c-e52b6fad07d3/1
+</code></pre>
+<p>在这个例子中：</p>
+<ul>
+<li>iSCSI Portal 的 IP 地址和端口号为 cluster-loadbalancer-ip 和3260，其中 cluster-loadbalancer-ip 替换为您之前配置的 iomesh-access-lb Service 的 external-ip。</li>
+<li>Target 名称是 iqn.2016-02.com.smartx:system:54e7022b-2dcc-4b43-800c-e52b6fad07d3。</li>
+<li>LUN ID 为 1。</li>
+</ul>
+<p>有了以上信息，您就可以使用任何 iSCSI 客户端进行连接了。 假设 cluster-loadbalancer-ip 为192.168.25.101，以<code>open-iscsi</code>为例：</p>
+<pre><code class="hljs css language-bash">iscsiadm -m discovery -t sendtargets  -p 192.168.25.101:3260 --discover
+iscsiadm -m node -T iqn.2016-02.com.smartx:system:54e7022b-2dcc-4b43-800c-e52b6fad07d3 -p 192.168.25.101:3260  --login
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="删除-pvc"></a><a href="#删除-pvc" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>删除 PVC</h2>
+<p>出于安全考考，IOMesh 不允许删除 <code>iomesh.com/iscsi-lun-iqn-allow-list</code> 字段值不为空的 PVC。 如果要删除PVC，需要确保<code>iomesh.com/iscsi-lun-iqn-allow-list</code>字段的值为<code>&quot;&quot;</code>，或者直接删除<code>iomesh.com/iscsi-lun-iqn-allow-list</code> 字段，然后删除 PVC。 删除 PVC 后是否保留 External iSCSI LUN 取决于 PVC 使用的 StorageClass 对应的 reclaimPolicy 字段。</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/next/stateful-applications/iomesh-for-mongodb"><span class="arrow-prev">← </span><span class="function-name-prevnext">使用 IOMesh 部署 MongoDB</span></a><a class="docs-next button" href="/next/additional-info/performance-testing"><span>性能测试</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#配置稳定的-iscsi-接入点">配置稳定的 iSCSI 接入点</a></li><li><a href="#使用-pvc-创建-external-iscsi-lun">使用 PVC 创建 External iSCSI LUN</a></li><li><a href="#删除-pvc">删除 PVC</a></li></ul></nav></div><footer id="footer" class="nav-footer"><div class="footerWrapper"><div class="">IOMesh</div><div class="linkList"><a class="footerLink" href="https://iomesh.com/spec">Spec</a><a class="footerLink" href="http://docs.iomesh.com/next/about-iomesh/introduction" target="_blank" rel="noreferrer">Docs</a><a class="footerLink" href="https://iomesh.com/contact">Contact Us</a><a class="footerLink" href="https://iomesh.com/privacy">Privacy Policy</a><span class=""> | </span><a class="footerLink" href="https://join.slack.com/t/slack-vcm1551/shared_invite/zt-nx33ud5h-~0D_MD5kL0sUrwslB~KF_A" target="_blank" rel="noreferrer">Slack</a><a class="footerLink" href="https://twitter.com/iomeshhq" target="_blank" rel="noreferrer">Twitter</a><a class="footerLink" href="https://www.youtube.com/channel/UCJV59ZDxjm822LK_oUhi7qA" target="_blank" rel="noreferrer">YouTube</a></div></div></footer></div></body></html>
