@@ -25,7 +25,8 @@
         "stateful-applications/iomesh-for-mongodb"
     ],
     "高级功能":[
-        "advanced-usage/external-iscsi"
+        "advanced-usage/external-iscsi",
+        "advanced-usage/multi-iomesh-cluster"
     ],
     "附录":[
         "additional-info/performance-testing",
