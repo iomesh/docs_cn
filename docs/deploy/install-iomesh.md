@@ -35,6 +35,8 @@ watch kubectl get --namespace iomesh-system pods
 
 IOMesh 已安装完成!
 
+> **_NOTE_: 通过脚本安装的 IOMesh 默认为 IOMesh 社区版，license 有效期为 30 天，当 license 过期后集群将拒绝所有写入请求。如果您计划试用 IOMesh 社区版超过 30 天，请通过访问 IOMesh 官网 https://www.iomesh.com/license 免费申请永久 license。
+
 > **_NOTE_: 通过脚本一键安装的 IOMesh 资源将被保留，方便在安装过程中出现任何错误时进行故障排除。 您可以运行以下脚本从 Kubernetes 集群中删除所有 IOMesh 资源: `curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -`**
 
 ## 自定义安装指南
@@ -77,10 +79,16 @@ helm repo add iomesh http://iomesh.com/charts
         dataCIDR: "10.234.1.0/24"
     ```
 
-    **(可选)** 配置集群的部署模式，默认是混闪模式。如果要部署为全闪则需要设则 `diskDeploymentMode` 字段为`allFlash` 
+    **(可选)** 配置集群的部署模式，默认是混闪模式。如果要部署为全闪则需要设置 `diskDeploymentMode` 字段为`allFlash` 
 
     ```yaml
     diskDeploymentMode: "hybridFlash" # set `diskDeploymentMode` to `allFlash` in all-flash deployment mode
+    ```
+
+    **(可选)** 配置 IOMesh 软件版本，默认是社区版。如果要部署为企业版需要设置 `edition` 字段为`enterprise`。关于社区版和企业版的区别参考 https://www.iomesh.com/spec
+
+    ```yaml
+    edition: "" # IOMesh software edition. Default is community, support: enterprise/community
     ```
    
    **(可选)** 如果只期望将 IOMesh 使用部分 Kubernetes node 的磁盘，在 `chunk.podPolicy.affinity` 字段配置对应 node 的 label. 例如:
