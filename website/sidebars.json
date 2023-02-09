@@ -27,6 +27,12 @@
     "高级功能":[
         "advanced-usage/external-iscsi"
     ],
+    "IOMesh LocalPV Manager":[
+        "iomesh-localpv-manager/overview",
+        "iomesh-localpv-manager/deploy",
+        "iomesh-localpv-manager/hostpath-localpv",
+        "iomesh-localpv-manager/device-localpv"
+    ],
     "附录":[
         "additional-info/performance-testing",
         "additional-info/release-notes"
