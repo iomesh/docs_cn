@@ -31,7 +31,8 @@
         "iomesh-localpv-manager/overview",
         "iomesh-localpv-manager/deploy",
         "iomesh-localpv-manager/hostpath-localpv",
-        "iomesh-localpv-manager/device-localpv"
+        "iomesh-localpv-manager/device-localpv",
+        "iomesh-localpv-manager/scheduler"
     ],
     "附录":[
         "additional-info/performance-testing",

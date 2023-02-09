@@ -1,14 +1,16 @@
 ---
 id: hostpath-localpv
-title: Hostpath 类型 LocalPV
-sidebar_label: Hostpath 类型 LocalPV
+title: IOMesh Hostpath LocalPV
+sidebar_label: IOMesh Hostpath LocalPV
 ---
+### 概述
+IOMesh Hostpath LocalPV 支持基于节点上的一个目录创建 Kubernetes PV 提供给 Pod 使用，并且支持 PV 级别的容量限额
 
 ### 创建 IOMesh Hostpath LocalPV
 
 #### 配置 StorageClass
 
-在 IOMesh LocalPV Manager 安装完成后，会创建一个默认的 hostpath 类型 StorageClass
+在 IOMesh LocalPV Manager 安装完成后，会默认创建一个`volumeType` 为 `hostpath` 类型的 StorageClass
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -29,11 +31,11 @@ volumeBindingMode: WaitForFirstConsumer
 | 参数名称               | 参数释义                                                     |
 | ---------------------- | ------------------------------------------------------------ |
 | parameters.volumeType  | localpv 类型，支持 `hostpath` 或 `device`                    |
-| parameters.basePath    | hostpath 类型 localpv 将被创建在 parameters.basePath 声明的目录 |
-| parameters.enableQuota | 是否开启目录限额，参考                                       |
-| volumeBindingMode      | localpv 绑定模式，仅支持 `WaitForFirstConsumer`              |
+| parameters.basePath    | localpv 将被创建在节点上 parameters.basePath 声明的目录中，如果 parameters.basePath 不存在会被自动创建  |
+| parameters.enableQuota | 是否开启目录限额，默认关闭                                       |
+| volumeBindingMode      | pvc 绑定模式，仅支持 `WaitForFirstConsumer`              |
 
-用户可以根据需要自身需求创建自定义的 StorageClass，比如改变 basePath 路径或开启目录限额
+用户可以根据需要自身需求创建自定义的 StorageClass，比如改变 basePath 路径或开启容量限额
 
 #### 创建 PVC
 
@@ -75,7 +77,7 @@ iomesh-localpv-hostpath-pvc   Pending                                      local
 
 #### 创建 Pod 绑定 PVC
 
-1. 准备 Pod 配置，绑定刚刚创建的 PVC
+1. 准备 Pod 配置，将 PVC 挂载到 Pod 内的 `/mnt/iomesh/localpv` 目录
 
 ```yaml
 # iomesh-localpv-hostpath-pod.yaml
@@ -102,7 +104,7 @@ spec:
 
 2. 创建 Pod
 
-```yaml
+```shell
 kubectl apply -f iomesh-localpv-hostpath-pod.yaml
 ```
 
@@ -133,7 +135,7 @@ kubeclt get pv pvc-ab61547e-1d81-4086-b4e4-632a08c6537b -o yaml
 
 输出如下
 
-```shell
+```yaml
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -168,7 +170,7 @@ spec:
 
 | 字段名称                           | 字段释义                                                     |
 | ---------------------------------- | ------------------------------------------------------------ |
-| spec.csi.volumeAttributes.basePath | localpv 创建的 basePath，该 PV 对应的目录被创建在 `iomesh-k8s-0` 这个节点的 /var/iomesh/local/pvc-ab61547e-1d81-4086-b4e4-632a08c6537b 路径 |
+| spec.csi.volumeAttributes.basePath | localpv 创建的 basePath，该 PV 对应的目录被创建在 `iomesh-k8s-0` 这个节点的 `/var/iomesh/local/pvc-ab61547e-1d81-4086-b4e4-632a08c6537b` 路径 |
 | spec.nodeAffinity                  | PV 的节点亲和性。该 PV 被创建后就与节点绑定，不会漂移到其他节点 |
 
 
@@ -183,7 +185,7 @@ IOMesh LocalPV Manager 的容量限额功能基于 xfs 文件系统的 xfs_quota
 
 ### 开启容量限额
 
-容量限额功能要求 StorageClass 中 parameters.basePath 指向的路径是一个 xfs 格式挂载点，并通过挂载选项开启了 xfs 的 prjquota 特性。在 K8s worker 上创建挂载点:
+容量限额功能要求 StorageClass 中 parameters.basePath 指向的路径是一个 xfs 格式挂载点，并通过挂载选项开启了 xfs 的 prjquota 特性。在 K8s worker 上创建该挂载点的步骤如下:
 
 1. 将待挂载的磁盘（假设为 /dev/sdx）格式化为 xfs 文件系统
 
@@ -197,7 +199,8 @@ sudo mkfs.xfs /dev/sdx
 mount -o prjquota /dev/sdx /var/iomesh/localpv-quota
 ```
 
-note: 如果希望使用一个已存在的 xfs 挂载点作为 basePath，则需要先 umount 该挂载点，然后重新用 `prjquota` 挂载选项再次挂载。（xfs 的 prjquota 挂载选项不支持在已有挂载点上直接 remount）
+> _NOTE_: 如果希望使用一个已存在的 xfs 挂载点作为 basePath，则需要先 umount 该挂载点，然后重新用 `prjquota` 挂载选项再次挂载。（xfs的 `prjquota` 挂
+载选项不支持在已有挂载点上直接 remount）
 
 3. 使用该挂载点作为  basePath 创建 StorageClass，并将 `parameters.enableQuota` 字段设为 "true"
 
@@ -217,4 +220,4 @@ volumeBindingMode: WaitForFirstConsumer
 
 4. 接着就可以使用该 StorageClass 创建 PVC，步骤与上一章节描述相同
 
- 
+> _NOTE_: 当前版本的 IOMesh LocalPV Manager 尚未支持调度器扩展（见[调度器扩展](scheduler)章节）, Pod 有可能被调度到容量限额不足的节点上，此时需要手动修改 Pod 的节点亲和性使其重新调度到容量限额满足需求的节点上
