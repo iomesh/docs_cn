@@ -17,12 +17,12 @@ IOMesh Hostpath LocalPV 支持基于节点上的一个块设备创建 Kubernetes
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: localpv-manager-device
+  name: iomesh-localpv-manager-device
 parameters:
   volumeType: device
-  fsType: ext4
+  csi.storage.k8s.io/fstype: "ext4"
   deviceSelector: {}
-provisioner: com.iomesh.localpv-manager
+provisioner: com.iomesh.iomesh-localpv-manager
 reclaimPolicy: Delete
 volumeBindingMode: WaitForFirstConsumer
 ```
@@ -31,9 +31,9 @@ volumeBindingMode: WaitForFirstConsumer
 
 | 参数名称                  | 参数释义                                               |
 | ------------------------- | ------------------------------------------------------ |
-| parameters.volumeType     | localpv 类型，支持 `hostpath` 或 `device`              |
-| parameters.deviceSelector | device 选择器，通过 label 来筛选 blockdevice           |
-| parameters.fsType         | pvc 的 `volumeMode` 为 `Filesystem` 时格式化的文件系统类型 |
+| parameters.volumeType     | localpv 类型，支持 `hostpath` 或 `device`，该参数为必选参数             |
+| parameters.deviceSelector | device 选择器，通过 label 来筛选 blockdevice，该参数为可选参数，如果未指定则默认筛选所有 label           |
+| parameters.  csi.storage.k8s.io/fstype         | pvc 的 `volumeMode` 为 `Filesystem` 时格式化的文件系统类型，该参数为可选参数，如果未指定默认为 ext4 |
 | volumeBindingMode         | localpv 绑定模式，仅支持 `WaitForFirstConsumer`        |
 
 #### 设备选择器
@@ -48,13 +48,13 @@ volumeBindingMode: WaitForFirstConsumer
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: localpv-manager-device-ssd
+  name: iomesh-localpv-manager-device-ssd
 parameters:
   volumeType: device
   deviceSelector: |
     matchLabels:
-      driveType: SSD
-provisioner: com.iomesh.localpv-manager
+      iomesh.com/bd-driveType: SSD
+provisioner: com.iomesh.iomesh-localpv-manager
 reclaimPolicy: Delete
 volumeBindingMode: WaitForFirstConsumer
 ```
@@ -74,12 +74,12 @@ apiVersion: v1
 metadata:
   name: iomesh-localpv-device-pvc
 spec:
-  storageClassName: localpv-manager-device
+  storageClassName: iomesh-localpv-manager-device
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 10G
+      storage: 10Gi
   volumeMode: Filesystem
 ```
 
@@ -91,12 +91,12 @@ apiVersion: v1
 metadata:
   name: iomesh-localpv-device-block-pvc
 spec:
-  storageClassName: localpv-manager-device
+  storageClassName: iomesh-localpv-manager-device
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 10G
+      storage: 10Gi
   volumeMode: Block
 ```
 
@@ -195,7 +195,7 @@ metadata:
 spec:
 ...
   csi:
-    driver: com.iomesh.localpv-manager
+    driver: com.iomesh.iomesh-localpv-manager
     volumeAttributes:
       csi.storage.k8s.io/pv/name: pvc-72f7a6ab-a9c4-4303-b9ba-683d7d9367d4
       csi.storage.k8s.io/pvc/name: iomesh-localpv-device-pvc

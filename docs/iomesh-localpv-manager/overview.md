@@ -26,8 +26,7 @@ IOMesh LocalPV Manager 主要由三个组件构成
 标准的 CSI Controller Server 实现，与 kube-apiserver 交互。负责 LocalPV 的创建和删除，以及 PV 与本地目录或设备的关系映射，每个 K8s Worker 节点都会有一个 Controller Driver 实例
 
 #### Node Driver
-标准的 CSI Node Server 实现，与 kubelet 交互。负责 LocalPV 的挂载与格式化，每个 K8s Worker 节点都会有一个 Controller Driver 实例
+标准的 CSI Node Server 实现，与 kubelet 交互。负责 LocalPV 的挂载与格式化，每个 K8s Worker 节点都会有一个 Node Driver 实例
 
 #### Node Disk Manager
 用于发现节点块设备，并将块设备抽象成 BlockDevice 对象，提供 BlockDeviceClaim 机制确保某一个块设备被某一个 Pod 独占
-

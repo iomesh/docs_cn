@@ -16,12 +16,12 @@ IOMesh Hostpath LocalPV 支持基于节点上的一个目录创建 Kubernetes PV
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: localpv-manager-hostpath
+  name: iomesh-localpv-manager-hostpath
 parameters:
   volumeType: hostpath
   basePath: /var/iomesh/local
   enableQuota: "false"
-provisioner: com.iomesh.localpv-manager
+provisioner: com.iomesh.iomesh-localpv-manager
 reclaimPolicy: Delete
 volumeBindingMode: WaitForFirstConsumer
 ```
@@ -30,9 +30,9 @@ volumeBindingMode: WaitForFirstConsumer
 
 | 参数名称               | 参数释义                                                     |
 | ---------------------- | ------------------------------------------------------------ |
-| parameters.volumeType  | localpv 类型，支持 `hostpath` 或 `device`                    |
-| parameters.basePath    | localpv 将被创建在节点上 parameters.basePath 声明的目录中，如果 parameters.basePath 不存在会被自动创建  |
-| parameters.enableQuota | 是否开启目录限额，默认关闭                                       |
+| parameters.volumeType  | localpv 类型，支持 `hostpath` 或 `device`， 该参数为必选参数                    |
+| parameters.basePath    | localpv 将被创建在节点上 parameters.basePath 声明的目录中，如果 parameters.basePath 不存在会被自动创建。**该参数为必选参数且parameters.basePath 的格式必须是绝对路径** |
+| parameters.enableQuota | 是否开启目录限额，该参数为可选参数，默认关闭                                       |
 | volumeBindingMode      | pvc 绑定模式，仅支持 `WaitForFirstConsumer`              |
 
 用户可以根据需要自身需求创建自定义的 StorageClass，比如改变 basePath 路径或开启容量限额
@@ -48,12 +48,12 @@ apiVersion: v1
 metadata:
   name: iomesh-localpv-hostpath-pvc
 spec:
-  storageClassName: localpv-manager-hostpath
+  storageClassName: iomesh-localpv-manager-hostpath
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 2G
+      storage: 2Gi
 ```
 
 2. 创建 PVC
@@ -143,7 +143,7 @@ metadata:
 spec:
 ...
   csi:
-    driver: com.iomesh.localpv-manager
+    driver: com.iomesh.iomesh-localpv-manager
     volumeAttributes:
       basePath: /var/iomesh/local
       csi.storage.k8s.io/pv/name: pvc-ab61547e-1d81-4086-b4e4-632a08c6537b
@@ -187,13 +187,19 @@ IOMesh LocalPV Manager 的容量限额功能基于 xfs 文件系统的 xfs_quota
 
 容量限额功能要求 StorageClass 中 parameters.basePath 指向的路径是一个 xfs 格式挂载点，并通过挂载选项开启了 xfs 的 prjquota 特性。在 K8s worker 上创建该挂载点的步骤如下:
 
-1. 将待挂载的磁盘（假设为 /dev/sdx）格式化为 xfs 文件系统
+1. 假设 basePath 为 /var/iomesh/localpv-quota, 创建对应目录
+
+```shell
+mkdir -p /var/iomesh/localpv-quota
+```
+
+2. 将待挂载的磁盘（假设为 /dev/sdx）格式化为 xfs 文件系统
 
 ```shell
 sudo mkfs.xfs /dev/sdx
 ```
 
-2. 挂载磁盘到 basePath（假设 basePath 为 /var/iomesh/localpv-quota），通过挂载选项开启 xfs 的  prjquota 特性
+3. 挂载磁盘到 basePath（假设 basePath 为 /var/iomesh/localpv-quota），通过挂载选项开启 xfs 的  prjquota 特性
 
 ```shell
 mount -o prjquota /dev/sdx /var/iomesh/localpv-quota
@@ -202,18 +208,20 @@ mount -o prjquota /dev/sdx /var/iomesh/localpv-quota
 > _NOTE_: 如果希望使用一个已存在的 xfs 挂载点作为 basePath，则需要先 umount 该挂载点，然后重新用 `prjquota` 挂载选项再次挂载。（xfs的 `prjquota` 挂
 载选项不支持在已有挂载点上直接 remount）
 
+> _NOTE_: 为了防止节点重启后挂载信息丢失，需要将挂载信息持久化到 /etc/fstab 配置文件中
+
 3. 使用该挂载点作为  basePath 创建 StorageClass，并将 `parameters.enableQuota` 字段设为 "true"
 
 ```yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: localpv-manager-hostpath
+  name: iomesh-localpv-manager-hostpath
 parameters:
   volumeType: hostpath
   basePath: /var/iomesh/localpv-quota
   enableQuota: "true"
-provisioner: com.iomesh.localpv-manager
+provisioner: com.iomesh.iomesh-localpv-manager
 reclaimPolicy: Delete
 volumeBindingMode: WaitForFirstConsumer
 ```
