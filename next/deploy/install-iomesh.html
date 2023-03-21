@@ -200,6 +200,12 @@ operator<span class="hljs-number">-85877979</span>-xqtml                        
     <span class="hljs-attr">dataCIDR:</span> <span class="hljs-string">"10.234.1.0/24"</span> 
 </code></pre>
 <p><strong>(可选)</strong> 配置集群的部署模式，默认是混闪模式。如果要部署为全闪则需要设则 <code>diskDeploymentMode</code> 字段为<code>allFlash</code></p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">diskDeploymentMode:</span> <span class="hljs-string">"hybridFlash"</span> <span class="hljs-comment"># set `diskDeploymentMode` to `allFlash` in all-flash deployment mode</span>
+</code></pre>
+<p><strong>(可选)</strong> 配置 IOMesh 软件版本，默认是社区版。如果要部署为企业版需要设置 <code>edition</code> 字段为<code>enterprise</code>。关于社区版和企业版的区别参考 <a href="https://www.iomesh.com/spec">https://www.iomesh.com/spec</a></p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">edition:</span> <span class="hljs-string">""</span> <span class="hljs-comment"># IOMesh software edition. Default is community, support: enterprise/community</span>
+</code></pre>
+<p><strong>(可选)</strong> 如果只期望将 IOMesh 使用部分 Kubernetes node 的磁盘，在 <code>chunk.podPolicy.affinity</code> 字段配置对应 node 的 label. 例如:</p>
 <pre><code class="hljs css language-yaml"><span class="hljs-attr">iomesh:</span>
   <span class="hljs-attr">chunk:</span>
     <span class="hljs-attr">podPolicy:</span>
