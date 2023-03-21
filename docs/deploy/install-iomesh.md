@@ -227,7 +227,19 @@ podman load --input ./images/iomesh-offline-images.tar
         dataCIDR: "10.234.1.0/24" 
     ```
 
-    **(可选)** 配置集群的部署模式，默认是混闪模式。如果要部署为全闪则需要设则 `diskDeploymentMode` 字段为`allFlash`
+   **(可选)** 配置集群的部署模式，默认是混闪模式。如果要部署为全闪则需要设则 `diskDeploymentMode` 字段为`allFlash`
+  
+    ```yaml
+    diskDeploymentMode: "hybridFlash" # set `diskDeploymentMode` to `allFlash` in all-flash deployment mode
+    ```
+
+   **(可选)** 配置 IOMesh 软件版本，默认是社区版。如果要部署为企业版需要设置 `edition` 字段为`enterprise`。关于社区版和企业版的区别参考 https://www.iomesh.com/spec
+
+    ```yaml
+    edition: "" # IOMesh software edition. Default is community, support: enterprise/community
+    ```
+   
+   **(可选)** 如果只期望将 IOMesh 使用部分 Kubernetes node 的磁盘，在 `chunk.podPolicy.affinity` 字段配置对应 node 的 label. 例如:  
    
    ```yaml
    iomesh:
