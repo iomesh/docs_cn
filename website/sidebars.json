@@ -25,7 +25,8 @@
         "stateful-applications/iomesh-for-mongodb"
     ],
     "高级功能":[
-        "advanced-usage/external-iscsi"
+        "advanced-usage/external-iscsi",
+        "advanced-usage/external-csi"
     ],
     "IOMesh 多集群管理":[
         "multi-cluster/multi-cluster-deploy",
