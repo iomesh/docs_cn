@@ -33,7 +33,7 @@
         "multi-cluster/multi-cluster-operation"
     ],
     "常见问题(FAQ)":[
-        "fqa/deploy"
+        "faq/deploy"
     ],
     "附录":[
         "additional-info/performance-testing",
