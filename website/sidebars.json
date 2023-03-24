@@ -32,6 +32,9 @@
         "multi-cluster/multi-cluster-deploy",
         "multi-cluster/multi-cluster-operation"
     ],
+    "常见问题(FAQ)":[
+        "fqa/deploy"
+    ],
     "附录":[
         "additional-info/performance-testing",
         "additional-info/release-notes"
