@@ -27,6 +27,10 @@
     "高级功能":[
         "advanced-usage/external-iscsi"
     ],
+    "IOMesh 多集群管理":[
+        "multi-cluster/multi-cluster-deploy",
+        "multi-cluster/multi-cluster-operation"
+    ],
     "附录":[
         "additional-info/performance-testing",
         "additional-info/release-notes"
