@@ -137,42 +137,48 @@ v1.0.0+
    helm install iomesh iomesh/iomesh --create-namespace  --namespace iomesh-system  --values iomesh-values.yaml
    ```
    ```output
-   NAME                                                  READY   STATUS    RESTARTS   AGE
-   iomesh-blockdevice-monitor-766655959f-7bwvv           1/1     Running   0          5h37m
-   iomesh-blockdevice-monitor-prober-pgbcp               1/1     Running   0          5h36m
-   iomesh-blockdevice-monitor-prober-v848k               1/1     Running   0          5h37m
-   iomesh-blockdevice-monitor-prober-w6vrw               1/1     Running   0          5h36m
-   iomesh-chunk-0                                        3/3     Running   0          5h34m
-   iomesh-chunk-1                                        3/3     Running   0          5h33m
-   iomesh-chunk-2                                        3/3     Running   0          5h33m
-   iomesh-csi-driver-controller-plugin-ccf6ccfd9-kf296   6/6     Running   3          30h
-   iomesh-csi-driver-node-plugin-c8mrj                   3/3     Running   1          30h
-   iomesh-csi-driver-node-plugin-jncfr                   3/3     Running   1          30h
-   iomesh-csi-driver-node-plugin-qrvc6                   3/3     Running   1          30h
-   iomesh-hostpath-provisioner-vdmrz                     1/1     Running   0          31h
-   iomesh-hostpath-provisioner-wtbfh                     1/1     Running   0          31h
-   iomesh-hostpath-provisioner-xlkvb                     1/1     Running   0          31h
-   iomesh-iscsi-redirector-9c455                         2/2     Running   1          5h36m
-   iomesh-iscsi-redirector-k7jbx                         2/2     Running   3          5h35m
-   iomesh-iscsi-redirector-l9w7l                         2/2     Running   1          5h34m
-   iomesh-localpv-manager-82564                          4/4     Running   2          29h
-   iomesh-localpv-manager-pkcbd                          4/4     Running   0          12h
-   iomesh-localpv-manager-px4cl                          4/4     Running   0          29h
-   iomesh-meta-0                                         2/2     Running   0          5h34m
-   iomesh-meta-1                                         2/2     Running   0          5h35m
-   iomesh-meta-2                                         2/2     Running   0          5h34m
-   iomesh-openebs-ndm-cluster-exporter-68c757948-qmtt4   1/1     Running   0          31h
-   iomesh-openebs-ndm-gnkzt                              1/1     Running   0          31h
-   iomesh-openebs-ndm-lrww8                              1/1     Running   0          31h
-   iomesh-openebs-ndm-node-exporter-rp4qr                1/1     Running   0          31h
-   iomesh-openebs-ndm-node-exporter-sgzpp                1/1     Running   0          31h
-   iomesh-openebs-ndm-node-exporter-txbn5                1/1     Running   0          31h
-   iomesh-openebs-ndm-operator-584fdbcb94-2tjsp          1/1     Running   0          31h
-   iomesh-openebs-ndm-zdngg                              1/1     Running   0          31h
-   iomesh-zookeeper-0                                    1/1     Running   0          31h
-   iomesh-zookeeper-operator-64957fcc4f-zpdjp            1/1     Running   0          30h
-   operator-f5644b7f9-2vvw7                              1/1     Running   0          5h37m
+   NAME                                                  READY   STATUS           RESTARTS   AGE
+   iomesh-blockdevice-monitor-766655959f-7bwvv           1/1     Running          0          5h37m
+   iomesh-blockdevice-monitor-prober-pgbcp               1/1     Running          0          5h36m
+   iomesh-blockdevice-monitor-prober-v848k               1/1     Running          0          5h37m
+   iomesh-blockdevice-monitor-prober-w6vrw               1/1     Running          0          5h36m
+   iomesh-chunk-0                                        3/3     Running          0          5h34m
+   iomesh-chunk-1                                        3/3     Running          0          5h33m
+   iomesh-chunk-2                                        3/3     Running          0          5h33m
+   iomesh-csi-driver-controller-plugin-ccf6ccfd9-kf296   6/6     Running          3          30h
+   iomesh-csi-driver-node-plugin-c8mrj                   3/3     Running          1          30h
+   iomesh-csi-driver-node-plugin-jncfr                   3/3     Running          1          30h
+   iomesh-csi-driver-node-plugin-qrvc6                   3/3     Running          1          30h
+   iomesh-csi-driver-node-plugin-5rvc6                   2/3     CrashLoopBackOff 1          30h
+   iomesh-csi-driver-node-plugin-qr4c6                   2/3     CrashLoopBackOff 1          30h
+   iomesh-csi-driver-node-plugin-q3vc6                   2/3     CrashLoopBackOff 1          30h
+   iomesh-hostpath-provisioner-vdmrz                     1/1     Running          0          31h
+   iomesh-hostpath-provisioner-wtbfh                     1/1     Running          0          31h
+   iomesh-hostpath-provisioner-xlkvb                     1/1     Running          0          31h
+   iomesh-iscsi-redirector-9c455                         2/2     Running          1          5h36m
+   iomesh-iscsi-redirector-k7jbx                         2/2     Running          3          5h35m
+   iomesh-iscsi-redirector-l9w7l                         2/2     Running          1          5h34m
+   iomesh-localpv-manager-82564                          4/4     Running          2          29h
+   iomesh-localpv-manager-pkcbd                          4/4     Running          0          12h
+   iomesh-localpv-manager-px4cl                          4/4     Running          0          29h
+   iomesh-meta-0                                         2/2     Running          0          5h34m
+   iomesh-meta-1                                         2/2     Running          0          5h35m
+   iomesh-meta-2                                         2/2     Running          0          5h34m
+   iomesh-openebs-ndm-cluster-exporter-68c757948-qmtt4   1/1     Running          0          31h
+   iomesh-openebs-ndm-gnkzt                              1/1     Running          0          31h
+   iomesh-openebs-ndm-lrww8                              1/1     Running          0          31h
+   iomesh-openebs-ndm-node-exporter-rp4qr                1/1     Running          0          31h
+   iomesh-openebs-ndm-node-exporter-sgzpp                1/1     Running          0          31h
+   iomesh-openebs-ndm-node-exporter-txbn5                1/1     Running          0          31h
+   iomesh-openebs-ndm-operator-584fdbcb94-2tjsp          1/1     Running          0          31h
+   iomesh-openebs-ndm-zdngg                              1/1     Running          0          31h
+   iomesh-zookeeper-0                                    1/1     Running          0          31h
+   iomesh-zookeeper-operator-64957fcc4f-zpdjp            1/1     Running          0          30h
+   operator-f5644b7f9-2vvw7                              1/1     Running          0          5h37m
    ```
+
+> _Note:_
+> k8s-woker-{3~5} 上的 iomesh-csi-driver-node-plugin pod 会一直处于 CrashLoopBackOff ，直到第二套集群部署好
 
 
 #### 部署第二套 IOMesh 集群 "iomesh-cluster-1"
