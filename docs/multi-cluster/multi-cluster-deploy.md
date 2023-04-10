@@ -9,7 +9,7 @@ IOMesh 支持在一个 K8s 集群中部署多个 IOMesh 集群，每个 IOMesh �
 一个 K8s 集群中的所有 IOMesh 集群会共用大部分管控组件（主要包括 operator，csi-driver，node-disk-manager），这样做的好处是可以大幅减少集群中 Pod 的数量，降低资源消耗。这些管控组件会在 IOMesh 首次部署时安装，后续将 K8s 集群中部署的第一套 IOMesh 集群称为管控 IOMesh 集群
 
 > _Note:_
-> IOMesh 暂时不支持将已存在的单 IOMesh 集群拓展成多 IOMesh 集群
+> 如果要将已经有的 IOMesh 集群拓展成多 IOMesh 集群，则需要将 [部署第一套 IOMesh 集群 "iomesh"](#部署第一套-iomesh-集群-iomesh) 章节中的亲和性配置通过 `helm upgrade` 的方式应用到已有的 IOMesh 集群中
 
 ## 支持该功能的 IOMesh 版本
 
