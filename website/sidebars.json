@@ -32,6 +32,13 @@
         "multi-cluster/multi-cluster-deploy",
         "multi-cluster/multi-cluster-operation"
     ],
+    "IOMesh LocalPV Manager":[
+        "iomesh-localpv-manager/overview",
+        "iomesh-localpv-manager/deploy",
+        "iomesh-localpv-manager/hostpath-localpv",
+        "iomesh-localpv-manager/device-localpv",
+        "iomesh-localpv-manager/scheduler"
+    ],
     "附录":[
         "additional-info/performance-testing",
         "additional-info/release-notes"
